@@ -19,9 +19,17 @@ dist: trusty
 language: java
 jdk:
   - oraclejdk8
+  
+jobs:
+  include:
+  - os: linux
+  - os: linux
+    arch: s390x
+    jdk: openjdk11
+    
 before_install:
   - export MAVEN_SKIP_RC="true" # Travis has settings in /etc/mavenrc. We want to override them. See https://github.com/travis-ci/travis-ci/issues/4613
 install:
   - # Skip mvn install. See https://docs.travis-ci.com/user/languages/java/
 script:
-  - MAVEN_OPTS="-Xms512m -Xmx1024m" ./mvnw clean install -DskipTests -B -fae
+  - MAVEN_OPTS="-Xms512m -Xmx1024m" ./mvnw clean install -DskipTests -B -fn
